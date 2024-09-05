@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News App</title>
+    <style>
+        body {
+            background-color: rgb(240, 240, 240);
+            font-family: sans-serif;
+        }
+
+        #outer {
+            display: flex;
+            justify-content: center;
+        }
+
+        #inner {
+            width: 80vw;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px auto;
+            background-color: white;
+        }
+
+        h1 {
+            font-size: 40px;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer">
+        <div id="inner">
+            <h1 style="text-align: center;">Daily News</h1>
+            <ul id="news"></ul>
+        </div>
+    </div>
+
+    <script>
+        const list = document.getElementById("news");
+        fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ftechcrunch.com%2Ffeed%2F')
+            .then(response => { return response.json() })
+            .then(data => {
+                console.log(data);
+                data.items.forEach((item) => {
+                    console.log(item);
+                    const li = document.createElement("li");
+                    const h2 = document.createElement("h2");
+                    const auth = document.createElement("h3");
+                    const text = document.createElement("p");
+                    const a = document.createElement("a");
+                    h2.innerHTML = item.title;
+                    auth.innerHTML = `by ${item.author}`;
+                    text.innerHTML = item.description;
+                    a.target = "_blank";
+                    a.href = "link";
+                    a.textContent = "Read more";
+                    li.append(h2);
+                    li.append(auth);
+                    li.append(text);
+                    li.append(a);
+                    news.append(li);
+                    news.append(document.createElement("hr"));
+                })
+            })
+    </script>
+</body>
+
+</html>
